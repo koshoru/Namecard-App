@@ -4,18 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -100,7 +113,7 @@ class MainActivity : ComponentActivity() {
                             //Email
                             Label(icon = Icons.Default.Email, text = "Email")
                             Text(
-                                modifier = Modifier.padding(top = 5.dp, bottom = 15.dp),
+                                modifier = Modifier.padding(top = 5.dp, bottom = 10.dp),
                                 text = "hyeongseop.ye@tm-nets.com",
                                 fontSize = 15.sp,
                             )
@@ -108,21 +121,73 @@ class MainActivity : ComponentActivity() {
                             //Tel
                             Label(icon = Icons.Default.Phone, text = "Tel")
                             Text(
-                                modifier = Modifier.padding(top = 5.dp, bottom = 15.dp),
+                                modifier = Modifier.padding(top = 5.dp, bottom = 10.dp),
                                 text = "080-4673-5743",
                                 fontSize = 15.sp,
                             )
                             Divider(
                                 modifier = Modifier
                                     .padding(top = 5.dp)
-                                    .clip(RoundedCornerShape(200.dp)),
+                                    .clip(RoundedCornerShape(1000.dp)),
                                 thickness = 3.dp,
                                 color = Color.LightGray,
                             )
+
+                            var isShowDetail by remember { mutableStateOf(false) }
+                            //Detail Button
+                            Button(
+                                modifier = Modifier
+                                    .padding(vertical = 15.dp)
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(5.dp)),
+                                colors = ButtonDefaults.buttonColors(Color(0xEDF44C36)),
+                                shape = RoundedCornerShape(10.dp),
+                                onClick = { isShowDetail= !isShowDetail }) {
+                                Text(
+                                    text = "Detail",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color.White
+                                )
+                            }
+
+                            if (isShowDetail) {
+                                DetailSection()
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun DetailSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(color = Color.LightGray.copy(0.5f))
+            .padding(15.dp),
+    ) {
+        //Favorite
+        Row(verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(bottom = 10.dp)) {
+            Label(icon = Icons.Default.Favorite, text = "Favorite")
+            Spacer(modifier = Modifier.size(5.dp))
+            Text(text = "Playing Games, Watching Drama",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Light)
+        }
+
+        //Residence
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Label(icon = Icons.Default.LocationOn, text = "Residence")
+            Spacer(modifier = Modifier.size(5.dp))
+            Text(text = "Tokyo",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Light)
         }
     }
 }
