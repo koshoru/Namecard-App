@@ -17,6 +17,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,71 +45,75 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .padding(30.dp)
-                            .verticalScroll(rememberScrollState())
-                    ) {
-                        //Profile Picture
-                        Image(
-                            painter = painterResource(id = R.drawable.profilepic),
-                            contentDescription = "ProfilePic",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(150.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                        )
-
-                        //Name
-                        Text(
-                            modifier = Modifier.padding(top = 20.dp),
-                            text = "Ye Hyeongseop",
-                            color = Color.Gray,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                        )
-
-                        //Job
-                        Text(
-                            modifier = Modifier.padding(top = 10.dp),
-                            text = "Android Engineer",
-                            color = Color.Gray,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                        Column(horizontalAlignment = Alignment.Start) {
-                            //CompanySection
-                            CompanySection()
-
-                            var isShowDetail by remember { mutableStateOf(false) }
-                            //Detail Button
-                            Button(
-                                modifier = Modifier
-                                    .padding(vertical = 15.dp)
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(5.dp)),
-                                colors = ButtonDefaults.buttonColors(Color(0xEDF44C36)),
-                                shape = RoundedCornerShape(10.dp),
-                                onClick = { isShowDetail = !isShowDetail }) {
-                                Text(
-                                    text = "Detail",
-                                    fontSize = 15.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = Color.White
-                                )
-                            }
-
-                            //DetailSection
-                            if (isShowDetail) {
-                                DetailSection()
-                            }
-                        }
-                    }
+                    NamecardApp()
                 }
             }
         }
     }
 }
 
+@Composable
+fun NamecardApp() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(30.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
+        //Profile Picture
+        Image(
+            painter = painterResource(id = R.drawable.profilepic),
+            contentDescription = "ProfilePic",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(150.dp)
+                .clip(RoundedCornerShape(16.dp))
+        )
+
+        //Name
+        Text(
+            modifier = Modifier.padding(top = 20.dp),
+            text = "Ye Hyeongseop",
+            color = Color.Gray,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+        )
+
+        //Job
+        Text(
+            modifier = Modifier.padding(top = 10.dp),
+            text = "Android Engineer",
+            color = Color.Gray,
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Medium
+        )
+
+        Column(horizontalAlignment = Alignment.Start) {
+            //CompanySection
+            CompanySection()
+
+            var isShowDetail by remember { mutableStateOf(false) }
+            //Detail Button
+            Button(
+                modifier = Modifier
+                    .padding(vertical = 15.dp)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(5.dp)),
+                colors = ButtonDefaults.buttonColors(Color(0xEDF44C36)),
+                shape = RoundedCornerShape(10.dp),
+                onClick = { isShowDetail = !isShowDetail }) {
+                Text(
+                    text = "Detail",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+            }
+
+            //DetailSection
+            if (isShowDetail) {
+                DetailSection()
+            }
+        }
+    }
+}
